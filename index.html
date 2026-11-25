@@ -148,6 +148,8 @@
         <tr><td>V8</td><td>OTP email pipeline plaintext, disposable domains accepted</td><td><span class="pill low">Low</span></td><td class="ok">Confirmed</td></tr>
         <tr><td>V9</td><td>Server-side admin gate correct; middleware bypass header tested &amp; patched</td><td><span class="pill low">Low</span></td><td class="ok">Verified good</td></tr>
         <tr><td>V10</td><td>No sitemap / robots / security.txt; header inconsistency</td><td><span class="pill info">Info</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V11</td><td>Admin area enumerated via middleware bypass — any session reaches <code>/admin/*</code> (200) and sees the module list; page-level permission still enforced</td><td><span class="pill low">Low</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V12</td><td><code>banners</code> UPDATE policy matches 0 rows for normal users (<code>Content-Range: */0</code>) — writes are admin-only, not role-broken</td><td><span class="pill info">Info</span></td><td class="ok">Verified good</td></tr>
       </tbody>
     </table>
   </section>
@@ -236,6 +238,7 @@
       <div class="demo-b">
         <div class="live"><span class="url">UPDATE banners SET title = 'Hi Gais' WHERE placement = 'hero';</span></div>
         <p class="note">Anon and fresh verified users are blocked from this write — so a homepage defacement needs <b>an elevated account</b> (or any future RLS gap, or a leaked admin session). The demo proves the visual; the RLS matrix proves the barrier. The risk is that the barrier is implicit, undocumented and untested — not that it is absent.</p>
+        <p class="note" style="border-left-color:var(--red)"><b>Tested live:</b> a verified ordinary account issuing that exact UPDATE receives HTTP 200 but <code>Content-Range: */0</code> — zero rows touched. To flip the homepage you need an admin row in <code>user_roles</code>, and the 60-route <code>/admin</code> tree is visible to any session (middleware bypass) even when the page then says <i>“Akses ditolak”</i>. Map of the gates, handed over for free.</p>
       </div>
     </div>
   </section>
