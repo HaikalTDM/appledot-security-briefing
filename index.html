@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appledot — Security Briefing</title>
+<style>
+  :root{
+    --bg:#0e0d0b; --panel:#17150f; --panel2:#1f1c15; --line:#2e2a21;
+    --text:#f7f2e7; --muted:#a39b8d; --gold:#f5a623; --gold-dim:#5c4517;
+    --red:#e5484d; --amber:#f5a623; --green:#46a758; --blue:#3b82f6;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.55}
+
+  /* ---------- top bar ---------- */
+  .top{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:rgba(14,13,11,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}
+  .logo .d{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+  .tag{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);background:rgba(245,166,35,.07);padding:5px 10px;border-radius:999px}
+  .top nav{display:flex;gap:16px;font-size:13px;color:var(--muted)}
+  .top nav a{color:inherit;text-decoration:none}
+  .top nav a:hover{color:var(--text)}
+
+  /* ---------- layout ---------- */
+  main{max-width:1080px;margin:0 auto;padding:44px 24px 90px}
+  section{margin-bottom:64px}
+  h1{font-size:clamp(32px,5.2vw,52px);line-height:1.03;letter-spacing:-.035em;font-weight:900;margin-bottom:14px}
+  h2{font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  h2 .num{font-size:13px;font-weight:800;color:var(--gold);border:1px solid var(--gold-dim);border-radius:8px;padding:3px 8px;font-family:var(--mono)}
+  p.lead{color:var(--muted);max-width:64ch;font-size:15.5px}
+  .muted{color:var(--muted)}
+  code{font-family:var(--mono);font-size:.9em;background:var(--panel2);border:1px solid var(--line);padding:1px 5px;border-radius:5px;color:#ffe2b0;word-break:break-all}
+
+  /* ---------- hero card ---------- */
+  .drop{border:1px solid var(--line);border-radius:18px;background:
+    radial-gradient(circle at 82% -10%,rgba(245,166,35,.22),transparent 48%),
+    radial-gradient(circle at 4% 110%,rgba(229,72,77,.12),transparent 42%),var(--panel);
+    padding:34px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:26px}
+  .kpi{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .kpi .n{font-size:26px;font-weight:900;letter-spacing:-.03em;color:var(--gold)}
+  .kpi .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+
+  /* ---------- tables ---------- */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800}
+  tr:last-child td{border-bottom:0}
+  .pill{display:inline-block;font-size:11px;font-weight:800;padding:2px 9px;border-radius:999px;letter-spacing:.03em;white-space:nowrap}
+  .pill.med{background:rgba(245,166,35,.14);color:#ffcf85;border:1px solid rgba(245,166,35,.35)}
+  .pill.low{background:rgba(59,130,246,.13);color:#9cc2ff;border:1px solid rgba(59,130,246,.32)}
+  .pill.info{background:rgba(163,155,141,.12);color:#cfc7b9;border:1px solid rgba(163,155,141,.3)}
+  .ok{color:var(--green);font-weight:800}
+  .bad{color:var(--red);font-weight:800}
+
+  /* ---------- demo blocks ---------- */
+  .demo{border:1px solid var(--line);border-radius:16px;background:var(--panel);overflow:hidden;margin-top:18px}
+  .demo-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--panel2);flex-wrap:wrap}
+  .demo-h b{font-size:14px;letter-spacing:-.01em}
+  .demo-h span{font-size:11.5px;color:var(--muted)}
+  .demo-b{padding:18px}
+  .live{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;background:#000;border:1px solid var(--line);border-radius:9px;padding:11px 13px;overflow-x:auto;white-space:nowrap;color:#e9e2d6}
+  .live .url{color:#ffe2b0}
+  .open{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--gold);text-decoration:none;border:1px solid var(--gold-dim);border-radius:999px;padding:7px 13px}
+  .open:hover{background:rgba(245,166,35,.1)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:12px;padding-left:14px;border-left:2px solid var(--gold-dim)}
+  .note b{color:var(--text)}
+  .tryit{display:inline-flex;font-size:12px;font-weight:700;color:var(--gold);cursor:pointer;border:1px dashed var(--gold-dim);border-radius:8px;padding:5px 10px;background:transparent;margin-top:12px}
+  .tryit:hover{background:rgba(245,166,35,.08)}
+
+  /* ---------- hi gais compare ---------- */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  .compare>div{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+  .compare .cap{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:9px 14px;border-bottom:1px solid var(--line);color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+  .banner{border-radius:18px;position:relative;min-height:200px;overflow:hidden;flex-shrink:0;display:flex;align-items:flex-end}
+  .banner .imgbg{position:absolute;inset:0;background-size:cover;background-position:center}
+  .banner .grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 5%,rgba(0,0,0,.1) 60%)}
+  .banner .inner{position:relative;padding:22px}
+  .banner .kick{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;color:var(--gold);margin-bottom:8px}
+  .banner .t{font-weight:900;letter-spacing:-.02em;line-height:1.05}
+  .banner.b1 .t{font-size:24px}
+  .banner.b2{background:linear-gradient(135deg,#3a2c86,#1b1640)}
+  .banner.b2::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(245,166,35,.45),transparent 45%),radial-gradient(circle at 20% 90%,rgba(229,72,77,.4),transparent 50%)}
+  .banner.b2 .t{font-size:46px;position:relative}
+  .banner.b2 .s{position:relative;color:rgba(255,255,255,.75);font-size:12.5px;margin-top:8px}
+  @media(max-width:640px){.compare{grid-template-columns:1fr}}
+
+  /* ---------- verdict ---------- */
+  .verdict{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  .vcard{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--panel)}
+  .vcard .h{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+  .vcard.ai .h{color:var(--red)}
+  .vcard.human .h{color:var(--green)}
+  .vcard ul{list-style:none;font-size:13.5px;color:var(--muted)}
+  .vcard li{padding:5px 0 5px 20px;position:relative}
+  .vcard.ai li::before{content:"✕";position:absolute;left:0;color:var(--red);font-weight:900}
+  .vcard.human li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:900}
+  @media(max-width:640px){.verdict{grid-template-columns:1fr}}
+
+  footer{border-top:1px solid var(--line);padding-top:22px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .foot-note{font-size:12px;color:var(--muted);margin-top:30px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="logo"><span class="d"></span> Appledot <span class="muted" style="font-weight:600;font-size:13px">Security Briefing</span></div>
+  <span class="tag">Partner Review · Nov 2026</span>
+  <nav><a href="#proof">Evidence</a><a href="#hi-gais">Hi Gais</a><a href="#verdict">Verdict</a></nav>
+</div>
+
+<main>
+
+  <!-- ============ INTRO ============ -->
+  <section id="top">
+    <div class="drop">
+      <p style="font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Assessment summary · non-destructive</p>
+      <h1>AI wrote the code.<br>Nobody wrote the <span style="color:var(--gold)">threat model</span>.</h1>
+      <p class="lead">This briefing is evidence-first. Every claim below is a live URL you can click, or a probe response captured during the scan. No destructive writes. One disposable account was created to test the authenticated role.</p>
+
+      <div class="kpis">
+        <div class="kpi"><div class="n">37+</div><div class="l">tables leaked by API</div></div>
+        <div class="kpi"><div class="n">3,964</div><div class="l">products readable anonymously</div></div>
+        <div class="kpi"><div class="n">50+</div><div class="l">payment proofs public</div></div>
+        <div class="kpi"><div class="n">0</div><div class="l">bad logins before friction</div></div>
+        <div class="kpi"><div class="n">1</div><div class="l">row controls the homepage</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINDINGS TABLE ============ -->
+  <section id="findings">
+    <h2><span class="num">01</span> What was found</h2>
+    <p class="lead">Ordered by how easy it is for a stranger to exploit, not by how hard it was to discover.</p>
+    <table>
+      <thead><tr><th>ID</th><th>Finding</th><th>Sev</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>V1</td><td>Public catalog fully readable with publishable key — no pagination cap</td><td><span class="pill med">Medium</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V2</td><td>PostgREST error oracle names every table in the schema</td><td><span class="pill med">Low–Med</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V3</td><td>Storage bucket listable anonymously; <code>acs-proof</code> (payment proofs) public</td><td><span class="pill med">Medium</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V4</td><td>RLS is the only write barrier — no defense if a migration forgets it</td><td><span class="pill med">Medium</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V5</td><td>No full CSP — only <code>frame-ancestors</code></td><td><span class="pill med">Medium</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V6</td><td>No visible auth rate limiting (8 attempts, no 429)</td><td><span class="pill med">Medium</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V7</td><td>Signup returns existing-user object (enumeration)</td><td><span class="pill low">Low</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V8</td><td>OTP email pipeline plaintext, disposable domains accepted</td><td><span class="pill low">Low</span></td><td class="ok">Confirmed</td></tr>
+        <tr><td>V9</td><td>Server-side admin gate correct; middleware bypass header tested &amp; patched</td><td><span class="pill low">Low</span></td><td class="ok">Verified good</td></tr>
+        <tr><td>V10</td><td>No sitemap / robots / security.txt; header inconsistency</td><td><span class="pill info">Info</span></td><td class="ok">Confirmed</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ LIVE PROOFS ============ -->
+  <section id="proof">
+    <h2><span class="num">02</span> Live proof — click with no developer tools</h2>
+    <p class="lead">These open in any browser. The publishable key is public by design; what it unlocks is the point.</p>
+
+    <div class="demo">
+      <div class="demo-h"><b>Demo 1 — The catalog is open</b><span>no login · no token · 3,964 rows</span></div>
+      <div class="demo-b">
+        <div class="live"><span class="url" id="d1"></span></div>
+        <button class="tryit" data-url="d1">Open in new tab →</button>
+        <p class="note"><b>What to say:</b> “This is the key that ships in the browser. It reads every product, every shop, every campaign. Remove <code>limit=3</code> in the URL and you get all 3,964 rows.”</p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-h"><b>Demo 2 — The schema answers questions</b><span>error message = table directory</span></div>
+      <div class="demo-b">
+        <div class="live"><span class="url" id="d2"></span></div>
+        <button class="tryit" data-url="d2">Open in new tab →</button>
+        <p class="note"><b>What to say:</b> “Ask for a table that doesn’t exist. The API politely tells you the name of a real one. Repeat 37 times and you have their entire data model without an account.”</p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-h"><b>Demo 3 — “Private” payment proofs are a slideshow</b><span>KYC folder · public object</span></div>
+      <div class="demo-b">
+        <div class="live"><span class="url" id="d3"></span></div>
+        <button class="tryit" data-url="d3">Open in new tab →</button>
+        <p class="note"><b>What to say:</b> “This is inside the <code>acs-proof</code> folder. Payment screenshots. The bucket is public and folder names are guessable. Multiply by every file in the listing.”</p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-h"><b>Demo 4 — The write wall is one policy thick</b><span>RLS matrix as a verified user</span></div>
+      <div class="demo-b">
+        <table style="margin-top:0">
+          <thead><tr><th>Table</th><th>Anonymous INSERT</th><th>Verified user INSERT</th><th>Verified user UPDATE own</th></tr></thead>
+          <tbody>
+            <tr><td><code>profiles</code></td><td class="bad">42501 blocked</td><td class="bad">42501 blocked</td><td class="ok">200 allowed</td></tr>
+            <tr><td><code>banners</code></td><td class="bad">42501 blocked</td><td class="bad">42501 blocked</td><td class="bad">401 blocked</td></tr>
+            <tr><td><code>products</code></td><td class="bad">42501 blocked</td><td class="bad">42501 blocked</td><td>—</td></tr>
+            <tr><td><code>campaigns</code></td><td class="bad">42501 blocked</td><td class="bad">42501 blocked</td><td>—</td></tr>
+            <tr><td><code>shops</code></td><td class="bad">42501 blocked</td><td class="bad">42501 blocked</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <p class="note"><b>What to say:</b> “The locks work. Do you know who maintains them? Every new table the AI generates needs this. One migration without <code>ENABLE ROW LEVEL SECURITY</code> and the column on the left turns green for the whole world.” Verified user promoting themselves to <code>user_type=admin</code> was also blocked at the column GRANT — <b>good</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HI GAIS ============ -->
+  <section id="hi-gais">
+    <h2><span class="num">03</span> The homepage notice — “Hi Gais”</h2>
+    <p class="lead">The hero banner is one row in <code>public.banners</code>. Change the row, change the homepage. This is what visitors would see.</p>
+
+    <div class="compare">
+      <div>
+        <div class="cap"><span>Today</span><span class="muted">placement = hero</span></div>
+        <div class="banner b1">
+          <div class="imgbg" style="background-image:url('https://wcvhzaepfnmymfopejnv.supabase.co/storage/v1/object/public/banner-images/banners/1793445626000-affiliate-expo-2026-mpaj-cc-tanpa-3.webp');filter:brightness(.7)"></div>
+          <div class="grad"></div>
+          <div class="inner">
+            <div class="kick">Hero banner</div>
+            <div class="t">Affiliate Expo 2026 — 5 Dis 2026,<br>Dewan MPAJ</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="cap"><span>After one UPDATE</span><span class="muted" style="color:var(--gold)">title = “Hi Gais”</span></div>
+        <div class="banner b2">
+          <div class="inner">
+            <div class="kick" style="position:relative">Hero banner</div>
+            <div class="t">Hi Gais</div>
+            <div class="s">Notis homepage ditukar tanpa kebenaran pemilik.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-h"><b>What the change costs</b><span>one row · zero code</span></div>
+      <div class="demo-b">
+        <div class="live"><span class="url">UPDATE banners SET title = 'Hi Gais' WHERE placement = 'hero';</span></div>
+        <p class="note">Anon and fresh verified users are blocked from this write — so a homepage defacement needs <b>an elevated account</b> (or any future RLS gap, or a leaked admin session). The demo proves the visual; the RLS matrix proves the barrier. The risk is that the barrier is implicit, undocumented and untested — not that it is absent.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VERDICT ============ -->
+  <section id="verdict">
+    <h2><span class="num">04</span> The verdict</h2>
+    <p class="lead">The gap is not code quality. The gap is what the code never had to survive.</p>
+
+    <div class="verdict">
+      <div class="vcard ai">
+        <div class="h">AI delivered</div>
+        <ul>
+          <li>Working auth (OTP + password)</li>
+          <li>Correct RLS on every table probed</li>
+          <li>Server-side admin route gate</li>
+          <li>Modern Next.js on Vercel</li>
+          <li>Responsive, polished UI</li>
+          <li>Sentry error reporting wired</li>
+        </ul>
+      </div>
+      <div class="vcard human">
+        <div class="h">Nobody specified</div>
+        <ul>
+          <li>Full Content-Security-Policy</li>
+          <li>Rate limits on login &amp; OTP</li>
+          <li>Private bucket for KYC proofs</li>
+          <li>RLS tests in CI per table</li>
+          <li>Schema-hint suppression</li>
+          <li>Pagination caps on public data</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-note">
+      <b>The one sentence to remember:</b> AI can write the lock, the door and the wall — but it does not ask <i>“who is allowed to walk through, and what happens when someone forgets to install the door?”</i> That question is the product. It cannot be autocompleted.
+    </div>
+  </section>
+
+  <footer>
+    <span>Appledot security briefing · non-destructive assessment · 25 Nov 2026</span>
+    <span>Evidence bundle: <code>appledot-scan/</code> · report: <code>SECURITY-ASSESSMENT.md</code></span>
+  </footer>
+</main>
+
+<script>
+  const KEY = 'sb_publishable_P5duje0mv9gdzyIyYYNt1A_EE5KbbMO';
+  const BASE = 'https://wcvhzaepfnmymfopejnv.supabase.co';
+  const urls = {
+    d1: BASE + '/rest/v1/products?select=name,commission_rate,sale_price_label&limit=3&apikey=' + KEY,
+    d2: BASE + '/rest/v1/logs?apikey=' + KEY,
+    d3: BASE + '/storage/v1/object/public/banner-images/acs-proof/011861fd-46cf-46fa-89ae-7698dff113ca-7710066362797919508.webp'
+  };
+  Object.entries(urls).forEach(([id, url]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = url;
+  });
+  document.querySelectorAll('.tryit').forEach(btn => {
+    btn.addEventListener('click', () => window.open(urls[btn.dataset.url], '_blank', 'noopener'));
+  });
+</script>
+</body>
+</html>
