@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Date: Wed, 25 Nov 2026 09:57:47 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 2
+Connection: keep-alive
+Content-Range: */0
+CF-Ray: a5ffca87f81afc75-SIN
+CF-Cache-Status: DYNAMIC
+Content-Location: /roles?limit=1&select=%2A
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+content-profile: public
+preference-applied: count=exact
+sb-gateway-version: 1
+sb-project-ref: wcvhzaepfnmymfopejnv
+sb-request-id: 01a21223-d101-7d57-8edf-a909bdf95d0a
+x-envoy-attempt-count: 1
+x-envoy-upstream-service-time: 3
+set-cookie: __cf_bm=h.ilYTcyDLcnFlT_xUx4E3y7pqHxmzGiyMK8mkoTaZk-1795600666.8771863-1.0.1.1-Q53BW8wCKAbQFd8TtnFROIfGhPGK7de5OUkPUgspOE0zD5K0Jfublyju19ZMgQ1o_7ODg59F698YLbeNNNkFSQolqJIA.KlZlksyTqVAVj9zHSPtp4Lx1AHuBhXBh97a; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=supabase.co; Expires=Wed, 25 Nov 2026 10:27:47 GMT
+alt-svc: h3=":443"; ma=86400
+

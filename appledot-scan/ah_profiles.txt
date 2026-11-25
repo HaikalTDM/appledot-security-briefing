@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+Date: Wed, 25 Nov 2026 10:08:51 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Content-Range: 0-0/1
+CF-Ray: a5ffdabfda328321-SIN
+CF-Cache-Status: DYNAMIC
+set-cookie: __cf_bm=N2Zzsc8O70IwWM9T1R69dwwEMS7VMfcYAnicANdjIhE-1795601331.1833804-1.0.1.1-EbcNGReDKWKcE7PlupUDgW43.e9YGATuFUqkz0QUMyPee99p4yGh2ukGA5_U4Inp8tBgAdRIrbSJEUoHBBUZX1kgVWgc5XZUkAeUvX5TMSEGGzH.sTbBbAMwfymQA2hx; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=supabase.co; Expires=Wed, 25 Nov 2026 10:38:51 GMT
+Content-Location: /profiles?limit=2&select=%2A
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+content-profile: public
+preference-applied: count=exact
+sb-gateway-version: 1
+sb-jwt-alg: ES256
+sb-jwt-iss: https://wcvhzaepfnmymfopejnv.supabase.co/auth/v1
+sb-jwt-sub: 073c51c7-139d-4cfb-9495-bb733b9947fe
+sb-project-ref: wcvhzaepfnmymfopejnv
+sb-request-id: 01a2122d-f3fa-7e6b-8a9c-8463b621111d
+x-envoy-attempt-count: 1
+x-envoy-upstream-service-time: 26
+alt-svc: h3=":443"; ma=86400
+

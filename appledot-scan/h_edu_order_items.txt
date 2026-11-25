@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Date: Wed, 25 Nov 2026 09:57:37 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 2
+Connection: keep-alive
+Content-Range: */0
+CF-Ray: a5ffca4dcb0ca07d-SIN
+CF-Cache-Status: DYNAMIC
+Content-Location: /edu_order_items?limit=1&select=%2A
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+content-profile: public
+preference-applied: count=exact
+sb-gateway-version: 1
+sb-project-ref: wcvhzaepfnmymfopejnv
+sb-request-id: 01a21223-acac-7f31-b66f-2a29e0e8857e
+x-envoy-attempt-count: 1
+x-envoy-upstream-service-time: 4
+set-cookie: __cf_bm=1x5z0nJ1ICHgV8bPOvJubp4OzfW.ZEa6IWYlqptUUQ8-1795600657.569697-1.0.1.1-OOMWqG1N.64YAVJavSv7a_jc9GbrbBlX6r789N_kAAMiiAZ31WCBDqXdid5q_22f7PlbhMO_GojRIvQEYlyYFTzE43woFu5vEN4b1BxZwoGaWVTsPowT_BNXCmqV7Uja; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=supabase.co; Expires=Wed, 25 Nov 2026 10:27:37 GMT
+alt-svc: h3=":443"; ma=86400
+

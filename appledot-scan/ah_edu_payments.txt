@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Date: Wed, 25 Nov 2026 10:08:54 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 2
+Connection: keep-alive
+Content-Range: */0
+CF-Ray: a5ffdacfdb6587f6-SIN
+CF-Cache-Status: DYNAMIC
+Content-Location: /edu_payments?limit=2&select=%2A
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+content-profile: public
+preference-applied: count=exact
+sb-gateway-version: 1
+sb-jwt-alg: ES256
+sb-jwt-iss: https://wcvhzaepfnmymfopejnv.supabase.co/auth/v1
+sb-jwt-sub: 073c51c7-139d-4cfb-9495-bb733b9947fe
+sb-project-ref: wcvhzaepfnmymfopejnv
+sb-request-id: 01a2122d-fdf7-7827-8fd6-dcf049a97bf0
+x-envoy-attempt-count: 1
+x-envoy-upstream-service-time: 11
+set-cookie: __cf_bm=OVN3KoKpPtEatlt2XXRMy5SE0xz3JhDSjlRQj0mcYak-1795601333.7386312-1.0.1.1-y2KchqvlWdknmFRPqEUWwzIJmpWDbc_ucHvuLYcTN4b81ZbhsM2NVbMzUOvnxwCaxVVgQPQ3B19N491hgpaBvU1uc9aCK0aYERMJQuHA58P1wabFPUHtuAqrm3D8SLAa; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=supabase.co; Expires=Wed, 25 Nov 2026 10:38:54 GMT
+alt-svc: h3=":443"; ma=86400
+

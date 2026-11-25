@@ -1,0 +1,21 @@
+HTTP/1.1 401 Unauthorized
+Date: Wed, 25 Nov 2026 09:57:33 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+CF-Ray: a5ffca34cf880ac0-SIN
+CF-Cache-Status: DYNAMIC
+set-cookie: __cf_bm=EP_2kJokmnomCQczZiLicJD24WcQDKejeO.PzS71JFg-1795600653.5673516-1.0.1.1-VfwIBNrVBoOFnYkcj0G2WzXG8Apro3pQCNe7.ZKMqAoSDh2OuiixLzPRUxC115rd_vY0yftXbtR6eeTOX1QCyWRjF3UOih2BAJp25JQrkiWRQbFFwCP_s6wZ4Or9YjnP; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=supabase.co; Expires=Wed, 25 Nov 2026 10:27:33 GMT
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Vary: Accept-Encoding
+WWW-Authenticate: Bearer
+Proxy-Status: PostgREST; error=42501
+X-Content-Type-Options: nosniff
+sb-gateway-version: 1
+sb-project-ref: wcvhzaepfnmymfopejnv
+sb-request-id: 01a21223-9d05-7112-9815-c8b023a6aac0
+x-envoy-attempt-count: 1
+x-envoy-upstream-service-time: 3
+alt-svc: h3=":443"; ma=86400
+

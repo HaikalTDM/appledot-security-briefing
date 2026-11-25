@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Date: Wed, 25 Nov 2026 09:57:40 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 2
+Connection: keep-alive
+Content-Range: */0
+CF-Ray: a5ffca5bfddb3e25-SIN
+CF-Cache-Status: DYNAMIC
+Content-Location: /tiktok_shop_categories?limit=1&select=%2A
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+content-profile: public
+preference-applied: count=exact
+sb-gateway-version: 1
+sb-project-ref: wcvhzaepfnmymfopejnv
+sb-request-id: 01a21223-b597-751a-9902-9e2c2a3172fe
+x-envoy-attempt-count: 1
+x-envoy-upstream-service-time: 2
+set-cookie: __cf_bm=IXMJNGVQGexHcwXJtwz2JEUZc_IVST.aDd9QE10DcTw-1795600659.8380826-1.0.1.1-HUNsymdw9G56zLZM_QwmwaPGzmffgf4gkx4h1ZN9TiUn2WjXF6uqXPE3n._0n8bRRi0GVrACrZeEQZe8jdIynuwU_fSMDk5OlkQ0De7wR5_uVCiHX9kBDZYKFguVu3tN; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=supabase.co; Expires=Wed, 25 Nov 2026 10:27:40 GMT
+alt-svc: h3=":443"; ma=86400
+
